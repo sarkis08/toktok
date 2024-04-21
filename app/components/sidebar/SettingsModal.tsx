@@ -10,7 +10,6 @@ import Modal from "../Modal";
 import Input from "../input/Input";
 import Image from "next/image";
 import { CldUploadButton } from "next-cloudinary";
-import { HiPhoto } from "react-icons/hi2";
 import Button from "../Button";
 import { Loader2 } from "lucide-react";
 
@@ -38,6 +37,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
     defaultValues: {
       name: currentUser?.name,
       image: currentUser?.image,
+      phoneNumber: currentUser?.phoneNumber,
     },
   });
 
@@ -56,6 +56,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
       .post("/api/settings", data)
       .then(() => {
         router.refresh();
+        toast.success("Profile settings updated!");
         onClose();
       })
       .catch(() => toast.error("Something went wrong!"))
@@ -82,6 +83,16 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                 required
                 register={register}
               />
+              <Input
+                disabled={isLoading}
+                label="Phone Number"
+                id="phoneNumber"
+                errors={errors}
+                required
+                register={register}
+                type="tel"
+                placeholder="Add phone number"
+              />
               <div>
                 <label className="block text-sm font-medium leading-6 text-gray-900">
                   Photo
@@ -106,6 +117,9 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                       <div className="text-sm leading-5 text-gray-500">
                         {currentUser?.email}
                       </div>
+                      <div className="text-sm leading-5 text-gray-500">
+                        {currentUser?.phoneNumber}
+                      </div>
                     </div>
                     <CldUploadButton
                       options={{ maxFiles: 1 }}
@@ -122,18 +136,12 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
             </div>
           </div>
 
-        <div>
-            <Button
-              disabled={isLoading}
-              fullWidth
-              type="submit"
-            >
+          <div>
+            <Button disabled={isLoading} fullWidth type="submit">
               {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Update
             </Button>
-  
-        </div>
-
+          </div>
         </div>
       </form>
     </Modal>

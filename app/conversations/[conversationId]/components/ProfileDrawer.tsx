@@ -8,6 +8,7 @@ import { format } from "date-fns";
 import { Fragment, useMemo, useState } from "react";
 import { IoClose, IoTrash } from "react-icons/io5";
 import ConfirmModal from "./ConfirmModal";
+import AvatarGroup from "@/app/components/AvatarGroup";
 
 interface ProfileDrawerProps {
   isOpen: boolean;
@@ -28,6 +29,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
   const joinedDate = useMemo(() => {
     return format(new Date(otherUser.createdAt), "PP");
   }, [otherUser.createdAt]);
+
 
   const title = useMemo(() => {
     return data.name || otherUser.name;
@@ -86,7 +88,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                       <div className="relative mt-6 flex-1 px-4 sm:px-4">
                         <div className="flex flex-col items-center">
                           <div className="mb-2">
-                            <Avatar user={otherUser} />
+                            {data.isGroup ? <AvatarGroup users={data.users} /> : <Avatar user={otherUser} />}
                           </div>
                           <div className="text-sm font-medium text-gray-900">
                             {title}
@@ -112,6 +114,20 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                           </div>
                           <div className="w-full pb-5 pt-5 sm:px-0 sm:pt-0">
                             <dl className="space-y-8 px-4 sm:space-y-6 sm:px-6">
+                              {data.isGroup && (
+                                <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                  {data.users.map((user) => (
+                                    <div key={user.id} className="sm:col-span-3">
+                                      <dt className="text-sm font-medium text-gray-500">
+                                        {user.name}
+                                      </dt>
+                                      <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                        {joinedDate}
+                                      </dd>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
                               {!data.isGroup && (
                                 <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                   <dt className="text-sm font-medium text-gray-500">
@@ -119,6 +135,16 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                                   </dt>
                                   <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                                     {otherUser.email}
+                                  </dd>
+                                </div>
+                              )}
+                              {!data.isGroup && otherUser.phoneNumber && (
+                                <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                  <dt className="text-sm font-medium text-gray-500">
+                                    Phone
+                                  </dt>
+                                  <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                    {otherUser.phoneNumber}
                                   </dd>
                                 </div>
                               )}

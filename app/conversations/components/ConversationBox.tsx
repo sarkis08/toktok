@@ -1,6 +1,7 @@
 "use client";
 
 import Avatar from "@/app/components/Avatar";
+import AvatarGroup from "@/app/components/AvatarGroup";
 import useOtherUser from "@/app/hooks/useOtherUser";
 import { FullConversationType } from "@/app/types";
 import { Conversation, Message, User } from "@prisma/client";
@@ -60,7 +61,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
       return lastMessage.body;
     }
 
-    return "Started a conversation";
+    return "Start a conversation";
   }, [lastMessage]);
 
   return (
@@ -83,7 +84,7 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
         selected ? "bg-neutral-100" : "bg-white"
       )}
     >
-      <Avatar user={otherUser} />
+      {data.isGroup ? <AvatarGroup users={data.users} /> : <Avatar user={otherUser} />}
       <div className="min-w-0 flex-1">
         <div className="focus:outline-none">
           <div className="flex justify-between items-center mb-1">
@@ -96,7 +97,14 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
               </p>
             )}
           </div>
-          <p className={clsx(`truncate text-sm`, hasSeen ? 'text-gray-500' : 'text-black font-medium')}>{lastMessageText}</p>
+          <p
+            className={clsx(
+              `truncate text-sm`,
+              hasSeen ? "text-gray-500" : "text-black font-medium"
+            )}
+          >
+            {lastMessageText}
+          </p>
         </div>
       </div>
     </div>

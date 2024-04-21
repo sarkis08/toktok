@@ -29,6 +29,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({ isOpen, onClose }) => {
         onClose();
         router.push("/conversations");
         router.refresh();
+        toast.success("Conversation deleted!");
       })
       .catch(() => toast.error("Error deleting conversation"))
       .finally(() => setIsLoading(false));

@@ -7,7 +7,7 @@ export async function POST(req: Request, res: Response) {
 
         const body = await req.json();
         const currentUser = await getCurrentUser();
-        const { name, image } = body;
+        const { name, image, phoneNumber } = body;
 
         if (!currentUser?.id || !currentUser?.email) {
             return new NextResponse("Unauthorized", { status: 401 });
@@ -20,7 +20,8 @@ export async function POST(req: Request, res: Response) {
             },
             data: {
                 image: image,
-                name: name
+                name: name,
+                phoneNumber: parseInt(phoneNumber)
             }
         });
 
