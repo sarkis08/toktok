@@ -6,6 +6,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 import prisma from "@/app/libs/prismadb";
+import { NextApiRequest, NextApiResponse } from "next";
 
 export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
@@ -64,10 +65,13 @@ export const authOptions: AuthOptions = {
     strategy: 'jwt'
   },
   secret: process.env.NEXTAUTH_SECRET,
-  
 };
 
 
-const handler = NextAuth(authOptions)
+// const handler = NextAuth(authOptions)
 
-export { handler as GET, handler as POST }
+// export { handler as GET, handler as POST }
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  return await NextAuth(req, res, authOptions);
+}
