@@ -133,7 +133,7 @@ const AuthForm = () => {
           </div>
         </form>
 
-        <div className="mt-6">
+        {/* <div className="mt-6">
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-300" />
@@ -156,7 +156,7 @@ const AuthForm = () => {
               onClick={() => socialAction("google")}
             />
           </div>
-        </div>
+        </div> */}
 
         <div className="flex gap-2 justify-center text-sm mt-6 px-2 text-gray-500">
           <div>
