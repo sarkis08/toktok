@@ -7,7 +7,7 @@ export default function Home() {
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <Image
           className="mx-auto w-auto"
-          src="/images/messenger.png"
+          src="/images/toktok-rmbg.png"
           alt="Logo"
           height="48"
           width="48"
