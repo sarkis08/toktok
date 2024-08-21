@@ -9,8 +9,9 @@ export default function Home() {
           className="mx-auto w-auto"
           src="/images/toktok-rmbg.png"
           alt="Logo"
-          height="48"
-          width="48"
+          height="60"
+          width="60"
+          
         />
         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Sign in your account</h2>
       </div>
